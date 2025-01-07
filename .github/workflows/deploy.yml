@@ -11,11 +11,21 @@ jobs:
     steps:
       - name: 读取仓库内容
         uses: actions/checkout@v4
+      - name: 安装指定Node版本
+        uses: actions/setup-node@v3 
+        with:
+          node-version: 20
       - name: 查看node版本
         run: node -v
       - name: 安装依赖打包
         run: |
           npm install
           npm run build
-       
+      - name: 上传构建好的产物
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dist
+      - name: 部署到Github Pages下
+        id: deployment
+        uses: actions/deploy-pages@v1
       
