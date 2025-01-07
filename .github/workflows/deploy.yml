@@ -4,22 +4,19 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master", "main"]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: node version
+      - name: 读取仓库内容
+        uses: actions/checkout@v4
+      - name: 查看node版本
+        run: node -v
+      - name: 安装依赖打包
+        run: |
+          npm install
+          npm run build
+      - name: 部署
+       
+      
